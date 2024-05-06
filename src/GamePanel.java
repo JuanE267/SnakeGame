@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements ActionListener {
     int appleX;
     int appleY;
     char direction = 'R';
+
+    Sound sound = new Sound();
     Boolean running = false;
     Timer timer;
     Random random;
@@ -106,12 +108,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkApple() {
         if ((x[0] == appleX) && (y[0] == appleY)) {
-
+            playEffect(0);
             bodyParts++;
             applesEaten++;
             newApple();
 
         }
+    }
+    public void playEffect(int i){
+        sound.setFile(i);
+        sound.play();
     }
 
     public void checkCollisions() {
@@ -146,7 +152,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver(Graphics g) {
         //Game Over Text
-
+        playEffect(1);
         g.setColor(Color.red);
         g.setFont(new Font("Comic Sans MS", Font.BOLD, 75));
         FontMetrics metrics = getFontMetrics(g.getFont());
